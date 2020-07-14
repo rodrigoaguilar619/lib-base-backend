@@ -82,6 +82,11 @@ public class GenericJpaPeristanceImpl<T> extends AbstractPersistence<EntityManag
 		return 1;
 	}
 	
+	public T update(T entity) {
+		T result = getEntityManager().merge(entity);
+		return result;
+	}
+	
 	@Override
 	public T findById(Class<T> clazz, T id) {
 		return getEntityManager().find(clazz, id);
