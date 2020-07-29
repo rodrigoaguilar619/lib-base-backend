@@ -103,4 +103,9 @@ public class GenericJpaPeristanceImpl<T> extends AbstractPersistence<EntityManag
         return allQuery.getResultList();
         
 	}
+
+	@Override
+	public void flush() {
+		getEntityManager().flush();
+	}
 }

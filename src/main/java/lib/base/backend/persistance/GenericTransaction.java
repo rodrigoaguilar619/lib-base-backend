@@ -9,4 +9,6 @@ public interface GenericTransaction<T> {
 	public void rollBackTransaction();
 	
 	public void closeEntityManager();
+
+	public void flush();
 }
