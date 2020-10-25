@@ -11,4 +11,6 @@ public interface GenericTransaction<T> {
 	public void closeEntityManager();
 
 	public void flush();
+	
+	public void clear();
 }
