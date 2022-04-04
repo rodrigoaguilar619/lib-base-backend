@@ -10,9 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import lib.base.backend.persistance.AbstractPersistence;
-import lib.base.backend.persistance.GenericCrud;
 import lib.base.backend.persistance.GenericPersistence;
-import lib.base.backend.persistance.GenericTransaction;
 
 public class GenericJpaPeristanceImpl<T> extends AbstractPersistence<EntityManagerFactory> implements GenericPersistence<T> {
 
@@ -82,6 +80,13 @@ public class GenericJpaPeristanceImpl<T> extends AbstractPersistence<EntityManag
 		return 1;
 	}
 	
+	public void save(List<T> entity) {
+		
+		for (T t: entity) {
+			getEntityManager().persist(t);
+		}
+	}
+	
 	public T update(T entity) {
 		T result = getEntityManager().merge(entity);
 		return result;
@@ -112,5 +117,10 @@ public class GenericJpaPeristanceImpl<T> extends AbstractPersistence<EntityManag
 	@Override
 	public void clear() {
 		getEntityManager().clear();
+	}
+	
+	@Override
+	public void delete(T entity) {
+		getEntityManager().remove(entity);
 	}
 }
