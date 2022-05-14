@@ -2,6 +2,8 @@ package lib.base.backend.persistance.transaction;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
@@ -14,17 +16,18 @@ import lib.base.backend.persistance.GenericPersistence;
 
 public class GenericJpaPeristanceImpl<T> extends AbstractPersistence<EntityManagerFactory> implements GenericPersistence<T> {
 
+	private static final Logger log = LoggerFactory.getLogger(GenericJpaPeristanceImpl.class);
+	
 	private final ThreadLocal<EntityManager> threadLocal;
-
 	
 	public GenericJpaPeristanceImpl(EntityManagerFactory entityManagerFactory) {
 		super(entityManagerFactory);
-		threadLocal = new ThreadLocal<EntityManager>();
+		threadLocal = new ThreadLocal<>();
 	}
 	
 	public GenericJpaPeristanceImpl(EntityManager entityManager) {
 		super(null);
-		threadLocal = new ThreadLocal<EntityManager>();
+		threadLocal = new ThreadLocal<>();
 		if (entityManager != null) {
 			threadLocal.set(entityManager);
 		}
@@ -42,8 +45,7 @@ public class GenericJpaPeristanceImpl<T> extends AbstractPersistence<EntityManag
 
 	protected EntityManager getEntityManager() {
 
-		EntityManager entityManager = threadLocal.get();
-		return entityManager;
+		return threadLocal.get();
 	}
 
 	public void startTransaction() {
@@ -61,8 +63,7 @@ public class GenericJpaPeristanceImpl<T> extends AbstractPersistence<EntityManag
 			if (getEntityManager().getTransaction().isActive())
 				getEntityManager().getTransaction().rollback();
 		} catch (Exception ex) {
-			// #NOTA# imprimir en log
-			ex.printStackTrace();
+			log.error("Error generic JPA", ex);
 		}
 	}
 
@@ -71,7 +72,7 @@ public class GenericJpaPeristanceImpl<T> extends AbstractPersistence<EntityManag
 		EntityManager entityManager = threadLocal.get();
 		if (entityManager != null && entityManager.isOpen()) {
 			entityManager.close();
-			threadLocal.set(null);
+			threadLocal.remove();
 		}
 	}
 
@@ -88,8 +89,7 @@ public class GenericJpaPeristanceImpl<T> extends AbstractPersistence<EntityManag
 	}
 	
 	public T update(T entity) {
-		T result = getEntityManager().merge(entity);
-		return result;
+		return getEntityManager().merge(entity);
 	}
 	
 	@Override
@@ -123,4 +123,5 @@ public class GenericJpaPeristanceImpl<T> extends AbstractPersistence<EntityManag
 	public void delete(T entity) {
 		getEntityManager().remove(entity);
 	}
+	
 }

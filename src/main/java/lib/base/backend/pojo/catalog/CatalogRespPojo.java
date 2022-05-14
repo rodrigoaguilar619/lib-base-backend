@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CatalogRespPojo {
 
-	private List<CatalogDataPojo> catalogs = new ArrayList<CatalogDataPojo>();
+	private List<CatalogDataPojo> catalogs = new ArrayList<>();
 
 	public List<CatalogDataPojo> getCatalogs() {
 		return catalogs;

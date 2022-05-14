@@ -1,5 +1,5 @@
 package lib.base.backend.persistance;
 
-public interface GenericPersistence<T> extends GenericTransaction<T>, GenericCrud<T> {
+public interface GenericPersistence<T> extends GenericTransaction, GenericCrud<T> {
 
 }

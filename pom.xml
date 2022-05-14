@@ -20,6 +20,7 @@
 
 	<properties>
 		<test.skip>true</test.skip>
+		<sonarqube.version>3.4.0.905</sonarqube.version>
 	</properties>
 
 	<dependencies>
@@ -73,6 +74,11 @@
 					<skipTests>${test.skip}</skipTests>
 				</configuration>
 			</plugin>
+			<plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonarqube.version}</version>
+            </plugin>
 		</plugins>
 	</build>
 

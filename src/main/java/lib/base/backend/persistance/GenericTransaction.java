@@ -1,6 +1,6 @@
 package lib.base.backend.persistance;
 
-public interface GenericTransaction<T> {
+public interface GenericTransaction {
 
 	public void startTransaction();
 	

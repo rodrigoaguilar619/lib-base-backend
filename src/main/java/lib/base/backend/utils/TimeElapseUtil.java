@@ -37,8 +37,6 @@ public class TimeElapseUtil {
 	public double getElapseSeconds(long start, long end) {
 		
 		long elapsedTime = end - start;
-		double elapsedTimeInSecond = (double) elapsedTime / 1_000_000_000;
-		
-		return elapsedTimeInSecond;
+		return (double) elapsedTime / 1_000_000_000;
 	}
 }

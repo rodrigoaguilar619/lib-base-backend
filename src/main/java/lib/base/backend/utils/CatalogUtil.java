@@ -19,7 +19,7 @@ public class CatalogUtil {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<CatalogDataPojo> getCatalog(Class clazz, List<?> catalogList) throws BaseException {
 		
-		List<CatalogDataPojo> catalogDataPojos = new ArrayList<CatalogDataPojo>();
+		List<CatalogDataPojo> catalogDataPojos = new ArrayList<>();
 		
 		try {
 			
@@ -45,7 +45,7 @@ public class CatalogUtil {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<CatalogDataPojo> getCatalog(Class clazz, List<?> catalogList, String fieldId, String fieldDescription) throws BaseException {
 		
-		List<CatalogDataPojo> catalogDataPojos = new ArrayList<CatalogDataPojo>();
+		List<CatalogDataPojo> catalogDataPojos = new ArrayList<>();
 		
 		try {
 			

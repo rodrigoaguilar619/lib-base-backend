@@ -4,9 +4,8 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 public class JpaUtil {
 
-	@SuppressWarnings("unchecked")
-	public String getTableMetaModel(Class clazz) {
+	public String getTableMetaModel(Class<?> clazz) {
 		
-		return ((StaticMetamodel) clazz.getAnnotation(StaticMetamodel.class)).value().getSimpleName();
+		return (clazz.getAnnotation(StaticMetamodel.class)).value().getSimpleName();
 	}
 }

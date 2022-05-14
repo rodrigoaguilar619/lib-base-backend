@@ -4,7 +4,7 @@ public abstract class AbstractPersistence<T> {
 	
 	protected T entityManagerFactory;
 
-	public AbstractPersistence(T entityManagerFactory) {
+	protected AbstractPersistence(T entityManagerFactory) {
 		super();
 		this.entityManagerFactory = entityManagerFactory;
 	}
