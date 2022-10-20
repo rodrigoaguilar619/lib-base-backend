@@ -14,7 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import lib.base.backend.exception.data.BusinessException;
-import lib.base.backend.pojo.rest.GenericResponseDto;
+import lib.base.backend.pojo.rest.GenericResponsePojo;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -28,12 +28,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 		
-		GenericResponseDto genericResponseDto = new GenericResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Ocurrio un error generico", "");
+		GenericResponsePojo genericResponseDto = new GenericResponsePojo(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error generic", "");
 		
 		if (ex instanceof BusinessException)
-			genericResponseDto = new GenericResponseDto(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), ex.getLocalizedMessage());
+			genericResponseDto = new GenericResponsePojo(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), ex.getLocalizedMessage());
 		else if (ex instanceof Exception)
-			genericResponseDto = new GenericResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Ocurrio un error", "");
+			genericResponseDto = new GenericResponsePojo(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error occurred", "");
 		
 		log.error(ex.getMessage(), ex);
 		

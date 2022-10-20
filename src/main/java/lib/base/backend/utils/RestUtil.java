@@ -5,16 +5,16 @@ import org.springframework.http.ResponseEntity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lib.base.backend.pojo.rest.GenericResponseDto;
+import lib.base.backend.pojo.rest.GenericResponsePojo;
 
 public class RestUtil<T> {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ResponseEntity buildResponseSuccess(T body, String message) {
 		
-		GenericResponseDto genericResponseDto = new GenericResponseDto<T>(HttpStatus.OK.value(), message, "");
-		genericResponseDto.setData(body != null ? body : new ObjectMapper().createObjectNode());
+		GenericResponsePojo genericResponsePojo = new GenericResponsePojo<T>(HttpStatus.OK.value(), message, "");
+		genericResponsePojo.setData(body != null ? body : new ObjectMapper().createObjectNode());
 		
-		return new ResponseEntity(genericResponseDto, HttpStatus.OK);
+		return new ResponseEntity(genericResponsePojo, HttpStatus.OK);
 	}
 }

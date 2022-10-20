@@ -13,7 +13,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>lib.base.backend</groupId>
 	<artifactId>lib-base-backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<name>lib-base-backend</name>
 	<description>libraries base backend</description>
@@ -21,6 +21,11 @@
 	<properties>
 		<test.skip>true</test.skip>
 		<sonarqube.version>3.4.0.905</sonarqube.version>
+		<joda.time.version>2.10</joda.time.version>
+		<spring.fox.version>3.0.0</spring.fox.version>
+		<lowagie.itext.version>2.1.7</lowagie.itext.version>
+		<jasperreport.core.version>6.16.0</jasperreport.core.version>
+		<jasperreport.font.version>6.16.0</jasperreport.font.version>
 	</properties>
 
 	<dependencies>
@@ -48,7 +53,39 @@
 		<dependency>
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-boot-starter</artifactId>
-		    <version>3.0.0</version>
+		    <version>${spring.fox.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>joda-time</groupId>
+		    <artifactId>joda-time</artifactId>
+		    <version>${joda.time.version}</version>
+		</dependency>
+		
+		<!-- Jasper report dependencies -->
+		
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>${jasperreport.core.version}</version>
+			<exclusions>
+	        <exclusion>
+	            <groupId>com.lowagie</groupId>
+	            <artifactId>itext</artifactId>
+	        </exclusion>
+	    </exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-fonts</artifactId>
+			<version>${jasperreport.font.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.lowagie</groupId>
+		    <artifactId>itext</artifactId>
+		    <version>${lowagie.itext.version}</version>
 		</dependency>
 
 		<!-- Test dependencies -->
@@ -69,6 +106,7 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 	</dependencies>
 
 	<build>

@@ -2,7 +2,7 @@ package lib.base.backend.pojo.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class GenericResponseDto<T> {
+public class GenericResponsePojo<T> {
 	
 	private Integer code;
 	
@@ -10,7 +10,7 @@ public class GenericResponseDto<T> {
 	
 	private String messageTecnicSupport;
 	
-	public GenericResponseDto(Integer code, String message, String messageTecnicSupport) {
+	public GenericResponsePojo(Integer code, String message, String messageTecnicSupport) {
 		super();
 		this.code = code;
 		this.message = message;
