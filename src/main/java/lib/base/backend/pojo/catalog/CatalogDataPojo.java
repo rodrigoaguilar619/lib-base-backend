@@ -1,30 +1,20 @@
 package lib.base.backend.pojo.catalog;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CatalogDataPojo {
 
-	public CatalogDataPojo(Integer id, String description) {
-		this.id = id;
-		this.description = description;
+	private List<Object> catalogs = new ArrayList<>();
+
+	@SuppressWarnings("rawtypes")
+	public List getCatalogs() {
+		return catalogs;
 	}
 
-	private Integer id;
-	
-	private String description;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void setCatalogs(List catalogs) {
+		this.catalogs = catalogs;
 	}
 	
 }

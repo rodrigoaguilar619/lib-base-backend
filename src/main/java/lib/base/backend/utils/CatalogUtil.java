@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lib.base.backend.exception.BaseException;
-import lib.base.backend.pojo.catalog.CatalogDataPojo;
+import lib.base.backend.pojo.catalog.CatalogPojo;
 
 public class CatalogUtil {
 	
@@ -17,9 +17,9 @@ public class CatalogUtil {
    }
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public List<CatalogDataPojo> getCatalog(Class clazz, List<?> catalogList) throws BaseException {
+	public List<CatalogPojo> getCatalog(Class clazz, List<?> catalogList) throws BaseException {
 		
-		List<CatalogDataPojo> catalogDataPojos = new ArrayList<>();
+		List<CatalogPojo> catalogDataPojos = new ArrayList<>();
 		
 		try {
 			
@@ -31,7 +31,7 @@ public class CatalogUtil {
 				Integer fieldValueId = (Integer) methodId.invoke(catalog);
 				String fieldValueDescription = (String) methodDescription.invoke(catalog);
 				
-				CatalogDataPojo catalogDataPojo = new CatalogDataPojo(fieldValueId, fieldValueDescription);
+				CatalogPojo catalogDataPojo = new CatalogPojo(fieldValueId, fieldValueDescription);
 				catalogDataPojos.add(catalogDataPojo);
 			}
 		}
@@ -43,9 +43,9 @@ public class CatalogUtil {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public List<CatalogDataPojo> getCatalog(Class clazz, List<?> catalogList, String fieldId, String fieldDescription) throws BaseException {
+	public List<CatalogPojo> getCatalog(Class clazz, List<?> catalogList, String fieldId, String fieldDescription) throws BaseException {
 		
-		List<CatalogDataPojo> catalogDataPojos = new ArrayList<>();
+		List<CatalogPojo> catalogDataPojos = new ArrayList<>();
 		
 		try {
 			
@@ -57,7 +57,7 @@ public class CatalogUtil {
 				Integer fieldValueId = (Integer) methodId.invoke(catalog);
 				String fieldValueDescription = (String) methodDescription.invoke(catalog);
 				
-				CatalogDataPojo catalogDataPojo = new CatalogDataPojo(fieldValueId, fieldValueDescription);
+				CatalogPojo catalogDataPojo = new CatalogPojo(fieldValueId, fieldValueDescription);
 				catalogDataPojos.add(catalogDataPojo);
 			}
 		}

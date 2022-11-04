@@ -1,11 +1,25 @@
 package lib.base.backend.utils;
 
+import java.text.DecimalFormat;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class TimeElapseUtil {
+	
+	private static final Logger log = LoggerFactory.getLogger(TimeElapseUtil.class);
 
 	long start;
+	
 	long end;
 	
 	String moduleTitle;
+	
+	private String getDecimal(Double numberDecimal) {
+		
+		DecimalFormat df = new DecimalFormat("0.00");
+		return df.format(numberDecimal);
+	}
 	
 	public TimeElapseUtil(String moduleTitle) {
 		
@@ -15,7 +29,7 @@ public class TimeElapseUtil {
 	public void printStart() {
 		
 		start = System.nanoTime();
-		System.out.println("------ START\t " + moduleTitle + " --------");
+		log.info("------ START  {} --------", moduleTitle);
 	}
 	
 	public void printEnd() {
@@ -23,15 +37,7 @@ public class TimeElapseUtil {
 		end = System.nanoTime();
 		
 		double elapsedTimeInSecond = getElapseSeconds(start, end);
-		System.out.println("------ END\t " + moduleTitle + " --------" + elapsedTimeInSecond + " seconds");
-	}
-	
-	public void printEnd(String moduleTitle) {
-		
-		end = System.nanoTime();
-		
-		double elapsedTimeInSecond = getElapseSeconds(start, end);
-		System.out.println("------ END\t " + moduleTitle + " --------" + elapsedTimeInSecond + " seconds");
+		log.info("------ FINISH {} --------  exucute time: {} seconds", moduleTitle, getDecimal(elapsedTimeInSecond));
 	}
 	
 	public double getElapseSeconds(long start, long end) {

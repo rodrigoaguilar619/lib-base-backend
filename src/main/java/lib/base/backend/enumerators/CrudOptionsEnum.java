@@ -1,4 +1,4 @@
-package lib.base.backend.web.enumerators;
+package lib.base.backend.enumerators;
 
 public enum CrudOptionsEnum {
 
