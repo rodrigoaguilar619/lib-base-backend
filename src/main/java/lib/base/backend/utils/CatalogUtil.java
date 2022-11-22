@@ -25,8 +25,8 @@ public class CatalogUtil {
 			
 			for (Object catalog: catalogList) {
 				
-				Method methodId = clazz.getDeclaredMethod("getId");
-				Method methodDescription = clazz.getDeclaredMethod("getDescription");
+				Method methodId = clazz.getMethod("getId");
+				Method methodDescription = clazz.getMethod("getDescription");
 				
 				Integer fieldValueId = (Integer) methodId.invoke(catalog);
 				String fieldValueDescription = (String) methodDescription.invoke(catalog);
