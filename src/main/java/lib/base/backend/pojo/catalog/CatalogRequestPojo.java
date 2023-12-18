@@ -4,6 +4,15 @@ public class CatalogRequestPojo {
 	
 	private String catalogName;
 
+	public CatalogRequestPojo() {
+		super();
+	}
+	
+	public CatalogRequestPojo(String catalogName) {
+		super();
+		this.catalogName = catalogName;
+	}
+
 	public String getCatalogName() {
 		return catalogName;
 	}
