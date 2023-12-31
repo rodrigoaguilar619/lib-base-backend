@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 import lib.base.backend.utils.CatalogUtil;
+import lib.base.backend.utils.HttpUtil;
 import lib.base.backend.utils.JpaUtil;
 import lib.base.backend.utils.ReadFileUtil;
 import lib.base.backend.utils.date.DateFormatUtil;
@@ -42,5 +43,11 @@ public class UtilBeans {
 	@Bean
 	public ReadFileUtil buildReadFileUtil() {
 		return new ReadFileUtil();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Bean
+	public HttpUtil buildHttpUtil() {
+		return new HttpUtil();
 	}
 }
