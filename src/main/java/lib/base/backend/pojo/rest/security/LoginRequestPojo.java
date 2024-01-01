@@ -1,6 +1,6 @@
 package lib.base.backend.pojo.rest.security;
 
-public class LoginRequest extends UserRequestPojo {
+public class LoginRequestPojo extends UserRequestPojo {
 
 	private String pwd;
 

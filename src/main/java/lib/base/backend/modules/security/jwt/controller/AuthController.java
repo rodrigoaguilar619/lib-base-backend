@@ -12,7 +12,7 @@ import lib.base.backend.modules.security.jwt.business.UserAuthBusiness;
 import lib.base.backend.modules.security.jwt.pojo.data.GetUserLoggedInDataPojo;
 import lib.base.backend.modules.security.jwt.util.JwtUtil;
 import lib.base.backend.modules.security.jwt.vo.UriCatalog;
-import lib.base.backend.pojo.rest.security.LoginRequest;
+import lib.base.backend.pojo.rest.security.LoginRequestPojo;
 import lib.base.backend.pojo.rest.security.UserRequestPojo;
 import lib.base.backend.utils.RestUtil;
 
@@ -27,7 +27,7 @@ public class AuthController {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping(UriCatalog.AUTH_LOGIN)
-    public ResponseEntity login(@RequestBody LoginRequest authRequest) throws BusinessException {
+    public ResponseEntity login(@RequestBody LoginRequestPojo authRequest) throws BusinessException {
 
     	GetUserLoggedInDataPojo dataPojo = userAuthBusiness.executeUserLogIn(authRequest);
     	
@@ -36,7 +36,7 @@ public class AuthController {
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping(UriCatalog.AUTH_LOGOUT)
-    public ResponseEntity logout(@RequestBody LoginRequest authRequest, @RequestHeader("Authorization") String authorizationHeader) throws BusinessException {
+    public ResponseEntity logout(@RequestBody LoginRequestPojo authRequest, @RequestHeader("Authorization") String authorizationHeader) throws BusinessException {
     	
     	userAuthBusiness.executeSaveUserLogOut(authRequest, authorizationHeader);
     	

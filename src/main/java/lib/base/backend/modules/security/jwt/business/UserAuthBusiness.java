@@ -18,9 +18,8 @@ import lib.base.backend.modules.security.jwt.repository.UserRepositoryImpl;
 import lib.base.backend.modules.security.jwt.util.JwtCryptUtil;
 import lib.base.backend.modules.security.jwt.util.JwtUtil;
 import lib.base.backend.persistance.GenericPersistence;
-import lib.base.backend.pojo.rest.security.LoginRequest;
+import lib.base.backend.pojo.rest.security.LoginRequestPojo;
 import lib.base.backend.pojo.rest.security.UserRequestPojo;
-import lib.base.backend.web.repository.CatalogBaseRepository;
 
 @Component
 public class UserAuthBusiness {
@@ -38,9 +37,6 @@ public class UserAuthBusiness {
 	ConfigAuthRepositoryImpl configAuthRepository;
 	
 	@Autowired
-	CatalogBaseRepository catalogBaseRepository;
-	
-	@Autowired
 	JwtUtil jwtUtil;
 	
 	@Autowired
@@ -55,7 +51,7 @@ public class UserAuthBusiness {
         return configAuthEntity != null;
     }
 	
-	public UserEntity validateUuserLogIn(LoginRequest authRequest) throws BusinessException {
+	public UserEntity validateUuserLogIn(LoginRequestPojo authRequest) throws BusinessException {
 		
 		String pwdEncrypt = jwtCryptUtil.encryptPwd(authRequest.getPwd());
 		
@@ -70,7 +66,7 @@ public class UserAuthBusiness {
 		return userEntity;
     }
 	
-	public UserEntity validateUuserLogInNotPwd(LoginRequest authRequest) throws BusinessException {
+	public UserEntity validateUuserLogInNotPwd(LoginRequestPojo authRequest) throws BusinessException {
 		
 		UserEntity userEntity = userRepository.findByUserName(authRequest.getUserName());
 		
@@ -82,7 +78,7 @@ public class UserAuthBusiness {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(rollbackFor = Exception.class)
-    public GetUserLoggedInDataPojo executeUserLogIn(LoginRequest authRequest) throws BusinessException {
+    public GetUserLoggedInDataPojo executeUserLogIn(LoginRequestPojo authRequest) throws BusinessException {
 		
 		UserEntity userEntity;
 		
@@ -116,7 +112,7 @@ public class UserAuthBusiness {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(rollbackFor = Exception.class)
-    public void executeSaveUserLogOut(LoginRequest authRequest, String authorizationHeader) throws BusinessException {
+    public void executeSaveUserLogOut(LoginRequestPojo authRequest, String authorizationHeader) throws BusinessException {
 		
 		String token = jwtUtil.extractToken(authorizationHeader);
 		
@@ -181,5 +177,11 @@ public class UserAuthBusiness {
         dataPojo.setToken(token);
         
         return dataPojo;
+    }
+	
+	@Transactional(rollbackFor = Exception.class)
+    public void executeDeleteTokensExpired(Long expirationTime) {
+		
+		configAuthRepository.deleteTokensExpired(expirationTime);
     }
 }
