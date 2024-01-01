@@ -1,4 +1,4 @@
-package lib.base.backend.web.config.beans;
+package lib.base.backend.modules.web.config.beans;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

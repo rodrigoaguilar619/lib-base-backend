@@ -1,4 +1,4 @@
-package lib.base.backend.web.config.custom;
+package lib.base.backend.modules.web.config.custom;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

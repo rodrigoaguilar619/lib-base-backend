@@ -1,4 +1,4 @@
-package lib.base.backend.web.config.handler;
+package lib.base.backend.modules.web.config.handler;
 
 import javax.servlet.http.HttpServletResponse;
 

@@ -1,4 +1,4 @@
-package lib.base.backend.web.config.beans;
+package lib.base.backend.modules.web.config.beans;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

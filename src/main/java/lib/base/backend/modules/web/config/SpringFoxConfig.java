@@ -1,4 +1,4 @@
-package lib.base.backend.web.config;
+package lib.base.backend.modules.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
