@@ -1,6 +1,8 @@
 package lib.base.backend.pojo.catalog;
 
-public class CatalogRequestPojo {
+import lib.base.backend.pojo.rest.security.UserRequestPojo;
+
+public class CatalogRequestPojo extends UserRequestPojo {
 	
 	private String catalogName;
 

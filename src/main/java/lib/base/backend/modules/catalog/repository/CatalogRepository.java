@@ -1,4 +1,4 @@
-package lib.base.backend.web.repository;
+package lib.base.backend.modules.catalog.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CatalogBaseRepository {
+public class CatalogRepository {
 	
 	@Autowired
 	EntityManager em;

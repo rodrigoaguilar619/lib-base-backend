@@ -9,6 +9,7 @@ import lib.base.backend.utils.CatalogUtil;
 import lib.base.backend.utils.HttpUtil;
 import lib.base.backend.utils.JpaUtil;
 import lib.base.backend.utils.ReadFileUtil;
+import lib.base.backend.utils.RestUtil;
 import lib.base.backend.utils.date.DateFormatUtil;
 import lib.base.backend.utils.date.DateUtil;
 
@@ -49,5 +50,11 @@ public class UtilBeans {
 	@Bean
 	public HttpUtil buildHttpUtil() {
 		return new HttpUtil();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Bean
+	public RestUtil buildRestUti() {
+		return new RestUtil();
 	}
 }
