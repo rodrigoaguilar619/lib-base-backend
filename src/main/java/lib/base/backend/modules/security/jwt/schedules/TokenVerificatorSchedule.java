@@ -20,7 +20,6 @@ public class TokenVerificatorSchedule {
 
 	@Scheduled(fixedRate = 10000) // Run every ten seconds
     public void tokenExpirationVerificator() {
-        System.out.println("Executing scheduled task every ten seconds...");
         userAuthBusiness.executeDeleteTokensExpired(expirationTime);
     }
 }

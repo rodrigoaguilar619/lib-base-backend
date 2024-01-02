@@ -22,6 +22,9 @@ public class UserEntity implements Serializable {
 	
 	@Column(name="password")
 	private String password;
+	
+	@Column(name="is_active")
+	private Boolean isActive;
 
 	public Integer getId() {
 		return id;
@@ -45,5 +48,13 @@ public class UserEntity implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 }
