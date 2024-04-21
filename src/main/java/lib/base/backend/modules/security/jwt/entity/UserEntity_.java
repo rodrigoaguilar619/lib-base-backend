@@ -11,8 +11,10 @@ public class UserEntity_ {
 	public static volatile SingularAttribute<ConfigAuthEntity, Integer> id;
 	public static volatile SingularAttribute<ConfigAuthEntity, String> userName;
 	public static volatile SingularAttribute<ConfigAuthEntity, String> password;
+	public static volatile SingularAttribute<ConfigAuthEntity, Boolean> isActive;
 	
 	public static final String ID = "id";
 	public static final String USER_NAME = "userName";
 	public static final String PASSWORD = "password";
+	public static final String IS_ACTIVE = "isActive";
 }

@@ -37,7 +37,8 @@ public class TimeElapseUtil {
 		end = System.nanoTime();
 		
 		double elapsedTimeInSecond = getElapseSeconds(start, end);
-		log.info("------ FINISH {} --------  exucute time: {} seconds", moduleTitle, getDecimal(elapsedTimeInSecond));
+		String elapsedTimeDecimal = getDecimal(elapsedTimeInSecond);
+		log.info("------ FINISH {} --------  exucute time: {} seconds", moduleTitle, elapsedTimeDecimal);
 	}
 	
 	public double getElapseSeconds(long start, long end) {

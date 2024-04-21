@@ -15,15 +15,11 @@ public class HttpUtil<T> {
 	public T mapRequest(HttpServletRequest request, Class<T> clazz) throws IOException {
 		
 		BufferedReader reader = request.getReader();
-        T customRequest = (T) objectMapper.readValue(reader, clazz);
-        
-        return customRequest;
+        return objectMapper.readValue(reader, clazz);
 	}
 	
 	public String mapEntity(Object object) throws JsonProcessingException {
 		
-		String jsonString = objectMapper.writeValueAsString(object);
-		
-		return jsonString;
+		return objectMapper.writeValueAsString(object);
 	}
 }

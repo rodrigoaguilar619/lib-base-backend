@@ -11,18 +11,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtUtil {
 	
 	@Value("${app.config.security.jwt.secret.key}")
-    private String SECRET_KEY;
-    
-	@Value("${app.config.security.jwt.expiration.time}")
-	private long EXPIRATION_TIME = 86400000;
+    private String secretKey;
 
     @SuppressWarnings("deprecation")
 	public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+                .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }
 
@@ -33,8 +29,7 @@ public class JwtUtil {
     public String extractToken(String authorizationHeader) {
     	
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            String token = authorizationHeader.substring(7);
-            return token;
+            return authorizationHeader.substring(7);
         }
        return null;
     }
@@ -45,6 +40,6 @@ public class JwtUtil {
 
     @SuppressWarnings("deprecation")
 	private Claims extractClaims(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 }

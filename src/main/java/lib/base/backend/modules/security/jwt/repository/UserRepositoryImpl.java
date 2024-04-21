@@ -18,8 +18,12 @@ import lib.base.backend.modules.security.jwt.entity.UserEntity_;
 @Repository
 public class UserRepositoryImpl {
 
-	@Autowired
 	EntityManager em;
+	
+	@Autowired
+	public UserRepositoryImpl(EntityManager em) {
+		this.em = em;
+	}
 	
 	public UserEntity findByUserName(String userName) {
 		
@@ -50,5 +54,18 @@ public class UserRepositoryImpl {
 		List<UserEntity> userEntities = em.createQuery(cq).getResultList();
 		
 		return userEntities != null && !userEntities.isEmpty() ? userEntities.get(0) : null;
+	}
+	
+	public List<UserEntity> findAllStatusActive() {
+		
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<UserEntity> cq = cb.createQuery(UserEntity.class);
+		Root<UserEntity> root = cq.from(UserEntity.class);
+		
+		List<Predicate> predicatesAnd = new ArrayList<>();
+		predicatesAnd.add(cb.equal(root.get(UserEntity_.IS_ACTIVE), true));
+		cq.where( predicatesAnd.toArray(new Predicate[0]) );
+
+		return em.createQuery(cq).getResultList();
 	}
 }

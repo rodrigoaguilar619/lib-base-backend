@@ -8,17 +8,23 @@ import lib.base.backend.utils.CryptUtil;
 
 public class JwtCryptUtil {
 	
-	@Autowired
 	CryptUtil cryptUtil;
 	
+	@Autowired
+	public JwtCryptUtil(CryptUtil cryptUtil) {
+		this.cryptUtil = cryptUtil;
+	}
+	
 	@Value("${app.config.security.jwt.secret.key}")
-    private String SECRET_KEY;
+    private String secretKey;
 	
 	@Value("${app.config.security.jwt.crypt.algorithm}")
-    private String CRYPT_ALGORITHM;
+    private String cryptAlgorithm;
+	
+	
 
 	public String encryptPwd(String pwd) throws BusinessException {
 		
-		return cryptUtil.encrypt(pwd, SECRET_KEY, CRYPT_ALGORITHM);
+		return cryptUtil.encrypt(pwd, secretKey, cryptAlgorithm);
 	}
 }

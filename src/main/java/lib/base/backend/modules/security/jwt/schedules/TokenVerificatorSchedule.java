@@ -16,8 +16,12 @@ public class TokenVerificatorSchedule {
 	
 	private static final Logger log = LoggerFactory.getLogger(TokenVerificatorSchedule.class);
 	
-	@Autowired
 	UserAuthBusiness userAuthBusiness;
+	
+	@Autowired
+	public TokenVerificatorSchedule(UserAuthBusiness userAuthBusiness) {
+		this.userAuthBusiness = userAuthBusiness;
+	}
 	
 	@Value("${app.config.security.jwt.expiration.time}")
 	private Long expirationTime;

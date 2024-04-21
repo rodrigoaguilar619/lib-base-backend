@@ -19,11 +19,15 @@ import lib.base.backend.utils.RestUtil;
 @RestController
 public class AuthController {
 	
-	@Autowired
 	JwtUtil jwtUtil;
 	
-	@Autowired
 	UserAuthBusiness userAuthBusiness;
+	
+	@Autowired
+	public AuthController(JwtUtil jwtUtil, UserAuthBusiness userAuthBusiness) {
+		this.jwtUtil = jwtUtil;
+		this.userAuthBusiness = userAuthBusiness;
+	}
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping(UriCatalog.AUTH_LOGIN)

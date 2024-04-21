@@ -15,10 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Assessment {
 	
-	
-	public Assessment() {
-		super();
-	}
+	private Assessment() {}
 
 	public static <T> void assertResponseAndDataList(MockMvc mockMvc, T requestPojo, List<?> dataPojo, String uri) throws Exception {
 		
@@ -35,7 +32,7 @@ public class Assessment {
         assertThat(dataPojo.size(), greaterThan(0));
 	}
 	
-	public static <T> void assertDataList(List<?> dataListPojo) throws Exception {
+	public static void assertDataList(List<?> dataListPojo) {
 		
         assertNotNull(dataListPojo);
         assertThat(dataListPojo.size(), greaterThan(0));

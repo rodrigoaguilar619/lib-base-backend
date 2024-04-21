@@ -14,8 +14,12 @@ import lib.base.backend.modules.security.jwt.config.filter.JwtAuthorizationFilte
 @Order(1)
 public class WebSecurityJwtConfig extends WebSecurityConfigurerAdapter {
 	
-	@Autowired
     private JwtAuthorizationFilter jwtAuthorizationFilter;
+	
+	@Autowired
+	public WebSecurityJwtConfig(JwtAuthorizationFilter jwtAuthorizationFilter) {
+		this.jwtAuthorizationFilter = jwtAuthorizationFilter;
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

@@ -27,23 +27,27 @@ public class UserAuthBusiness {
 	private static final Logger log = LoggerFactory.getLogger(UserAuthBusiness.class);
 	
 	@SuppressWarnings("rawtypes")
-	@Autowired
 	GenericPersistence genericCustomPersistance;
 	
-	@Autowired
 	UserRepositoryImpl userRepository;
 	
-	@Autowired
 	ConfigAuthRepositoryImpl configAuthRepository;
 	
-	@Autowired
 	JwtUtil jwtUtil;
 	
-	@Autowired
 	JwtCryptUtil jwtCryptUtil;
 	
 	@Value("${app.config.security.jwt.skip.auth}")
-	private Boolean isSkipAuth;
+	private boolean isSkipAuth;
+	
+	@Autowired
+	public UserAuthBusiness(GenericPersistence<?> genericCustomPersistance, UserRepositoryImpl userRepository, ConfigAuthRepositoryImpl configAuthRepository, JwtUtil jwtUtil, JwtCryptUtil jwtCryptUtil) {
+		this.genericCustomPersistance = genericCustomPersistance;
+		this.userRepository = userRepository;
+		this.configAuthRepository = configAuthRepository;
+		this.jwtUtil = jwtUtil;
+		this.jwtCryptUtil = jwtCryptUtil;
+	}
 
 	public boolean isUserLoggedIn(String username, String pwd) {
 		
@@ -51,7 +55,7 @@ public class UserAuthBusiness {
         return configAuthEntity != null;
     }
 	
-	public UserEntity validateUuserLogIn(LoginRequestPojo authRequest) throws BusinessException {
+	public UserEntity validateUserLogIn(LoginRequestPojo authRequest) throws BusinessException {
 		
 		String pwdEncrypt = jwtCryptUtil.encryptPwd(authRequest.getPwd());
 		
@@ -66,7 +70,7 @@ public class UserAuthBusiness {
 		return userEntity;
     }
 	
-	public UserEntity validateUuserLogInNotPwd(LoginRequestPojo authRequest) throws BusinessException {
+	public UserEntity validateUserLogInNotPwd(LoginRequestPojo authRequest) throws BusinessException {
 		
 		UserEntity userEntity = userRepository.findByUserName(authRequest.getUserName());
 		
@@ -84,10 +88,10 @@ public class UserAuthBusiness {
 		
 		if (isSkipAuth) {
 			log.debug("USER AUTH: skiping user auth with password");
-			userEntity = validateUuserLogInNotPwd(authRequest);
+			userEntity = validateUserLogInNotPwd(authRequest);
 		}
 		else
-			userEntity = validateUuserLogIn(authRequest);
+			userEntity = validateUserLogIn(authRequest);
     	
         ConfigAuthEntity configAuthEntity = configAuthRepository.findByUserName(authRequest.getUserName());
         

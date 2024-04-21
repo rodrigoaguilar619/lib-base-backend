@@ -34,7 +34,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 	private HttpUtil httpUtil;
 	
 	@Value("${app.config.security.jwt.skip.auth}")
-	private Boolean isSkipAuth;
+	private boolean isSkipAuth;
 	
 	private static final Logger log = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
 
@@ -62,7 +62,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 			boolean isSessionActive = userAuthBusiness.executeValidateAndRefreshToken(userRequestPojo, headerAuthorization);
 			log.debug("JWT AUTH: token session not active");
 			if (!isSessionActive) {
-				GenericResponsePojo<?> genericResponsePojo = new GenericResponsePojo<Object>(HttpStatus.UNAUTHORIZED.value(), "Not authorized", "");
+				GenericResponsePojo<?> genericResponsePojo = new GenericResponsePojo<>(HttpStatus.UNAUTHORIZED.value(), "Not authorized", "");
 				response.setContentType("application/json");
 			    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			    response.getOutputStream().write(httpUtil.mapEntity(genericResponsePojo).getBytes());

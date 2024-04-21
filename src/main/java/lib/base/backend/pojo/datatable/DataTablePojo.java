@@ -1,15 +1,12 @@
 package lib.base.backend.pojo.datatable;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-public class DataTablePojo {
+public class DataTablePojo<T> {
 
 	private Integer currentPage;
 	
 	private Integer rowsPerPage;
 	
-	private Map<String, String> filters = new LinkedHashMap<>();
+	private T filters;
 
 	public Integer getCurrentPage() {
 		return currentPage;
@@ -27,11 +24,11 @@ public class DataTablePojo {
 		this.rowsPerPage = rowsPerPage;
 	}
 
-	public Map<String, String> getFilters() {
+	public T getFilters() {
 		return filters;
 	}
 
-	public void setFilters(Map<String, String> filters) {
+	public void setFilters(T filters) {
 		this.filters = filters;
 	}
 

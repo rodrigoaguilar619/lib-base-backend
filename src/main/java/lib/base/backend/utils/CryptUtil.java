@@ -24,9 +24,7 @@ public class CryptUtil {
 	        // Compute the HMAC hash
 	        byte[] hmacHash = mac.doFinal(message.getBytes(StandardCharsets.UTF_8));
 	        // Encode the hash in Base64 to get the final encrypted string
-	        String encryptedMessage = Base64.getEncoder().encodeToString(hmacHash);
-	        
-	        return encryptedMessage;
+	        return Base64.getEncoder().encodeToString(hmacHash);
 		}
 		catch (NoSuchAlgorithmException e) {
 			throw new BusinessException("Error encrypting with " + algorithm + ", no such algorithm", e);

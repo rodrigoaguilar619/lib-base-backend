@@ -25,18 +25,29 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(value = { Exception.class })
 	public ResponseEntity<Object> handleCustomException(Exception ex, WebRequest request, HttpServletResponse httpResponse) {
 		
+		log.error(ex.getMessage(), ex);
+		
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 		
-		GenericResponsePojo genericResponseDto = new GenericResponsePojo(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error generic", "");
+		GenericResponsePojo genericResponseDto;
+		ResponseEntity reponseEntity;
+		HttpStatus httpStatus;
 		
-		if (ex instanceof BusinessException)
-			genericResponseDto = new GenericResponsePojo(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), ex.getLocalizedMessage());
-		else if (ex instanceof Exception)
+		if (ex instanceof BusinessException) {
+			httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+			genericResponseDto = new GenericResponsePojo(HttpStatus.UNPROCESSABLE_ENTITY.value(), ex.getMessage(), ex.getLocalizedMessage());
+		}
+		else if (ex instanceof Exception) {
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 			genericResponseDto = new GenericResponsePojo(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error occurred", "");
+		}
+		else {
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+			genericResponseDto = new GenericResponsePojo(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error generic occurred", "");
+		}
 		
-		log.error(ex.getMessage(), ex);
-		
-		return new ResponseEntity(genericResponseDto, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+		reponseEntity = new ResponseEntity(genericResponseDto, httpHeaders, httpStatus);
+		return reponseEntity;
     }
 }

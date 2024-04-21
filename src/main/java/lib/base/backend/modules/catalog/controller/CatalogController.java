@@ -11,17 +11,22 @@ import lib.base.backend.modules.catalog.business.CatalogBusiness;
 import lib.base.backend.modules.catalog.vo.UriCatalog;
 import lib.base.backend.pojo.catalog.CatalogDataPojo;
 import lib.base.backend.pojo.catalog.CatalogRequestPojo;
+import lib.base.backend.pojo.rest.security.UserRequestPojo;
 import lib.base.backend.utils.RestUtil;
 
 @RestController
 public class CatalogController {
 
-	@Autowired
 	CatalogBusiness catalogBusiness;
 	
 	@SuppressWarnings("rawtypes")
-	@Autowired
 	RestUtil restUtil;
+	
+	@Autowired
+	public CatalogController(CatalogBusiness catalogBusiness, RestUtil<?> restUtil) {
+		this.catalogBusiness = catalogBusiness;
+		this.restUtil = restUtil;
+	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@PostMapping(path = UriCatalog.API_GET_CATALOG, consumes = "application/json", produces = "application/json")
@@ -33,7 +38,7 @@ public class CatalogController {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@PostMapping(path = UriCatalog.API_GET_CATALOG_LIST, consumes = "application/json", produces = "application/json")
-	public ResponseEntity catalogGetList(@RequestBody CatalogRequestPojo requestPojo) throws BaseException {
+	public ResponseEntity catalogGetList(@RequestBody UserRequestPojo requestPojo) {
 		
 		CatalogDataPojo reponsePojo = catalogBusiness.executeGetCatalogList();
 		return restUtil.buildResponseSuccess(reponsePojo, "Catalog List getted");

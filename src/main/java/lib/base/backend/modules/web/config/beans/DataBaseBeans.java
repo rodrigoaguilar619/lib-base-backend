@@ -16,8 +16,12 @@ import lib.base.backend.persistance.transaction.GenericJpaPeristanceImpl;
 @Configuration
 public class DataBaseBeans {
 	
-	@Autowired
 	EntityManager entityManager;
+	
+	@Autowired
+	public DataBaseBeans(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
 	
 	@SuppressWarnings("rawtypes")
 	@Bean

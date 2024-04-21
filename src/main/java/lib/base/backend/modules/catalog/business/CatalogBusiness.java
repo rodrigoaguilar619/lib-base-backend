@@ -20,15 +20,18 @@ import lib.base.backend.utils.CatalogUtil;
 @Component
 public class CatalogBusiness {
 
-	@SuppressWarnings("rawtypes")
-	@Autowired
-	protected GenericPersistence genericCustomPersistance;
+	protected GenericPersistence<?> genericCustomPersistance;
 	
-	@Autowired
 	CatalogUtil catalogUtil;
 	
-	@Autowired
 	CatalogDefinition catalogDefinition;
+	
+	@Autowired
+	public CatalogBusiness(GenericPersistence<?> genericCustomPersistance, CatalogUtil catalogUtil, CatalogDefinition catalogDefinition) {
+		this.genericCustomPersistance = genericCustomPersistance;
+		this.catalogUtil = catalogUtil;
+		this.catalogDefinition = catalogDefinition;
+	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<CatalogPojo> getCatalog(String catalogName) throws BaseException {
@@ -55,7 +58,7 @@ public class CatalogBusiness {
 		return responsePojo;
 	}
 	
-	public CatalogDataPojo executeGetCatalogList() throws BaseException {
+	public CatalogDataPojo executeGetCatalogList() {
 		
 		List<String> catalogListPojo = new ArrayList<>(catalogDefinition.getCatalogsDefinition().keySet());
 		

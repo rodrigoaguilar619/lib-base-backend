@@ -11,8 +11,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CatalogRepository {
 	
-	@Autowired
 	EntityManager em;
+	
+	@Autowired
+	public CatalogRepository(EntityManager em) {
+		this.em = em;
+	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void deleteCatalog(Class clazz, Object id) {

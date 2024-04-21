@@ -1,6 +1,8 @@
 package lib.base.backend.modules.catalog.vo;
 
-public interface UriCatalog {
+public class UriCatalog {
+	
+	private UriCatalog() {}
 
 	public static final String API_GET_CATALOG = "/api/admin/catalog/getCatalog";
 	
