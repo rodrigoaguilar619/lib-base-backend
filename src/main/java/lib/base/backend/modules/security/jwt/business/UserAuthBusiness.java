@@ -1,6 +1,9 @@
 package lib.base.backend.modules.security.jwt.business;
 
+import java.io.IOException;
 import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +20,11 @@ import lib.base.backend.modules.security.jwt.repository.ConfigAuthRepositoryImpl
 import lib.base.backend.modules.security.jwt.repository.UserRepositoryImpl;
 import lib.base.backend.modules.security.jwt.util.JwtCryptUtil;
 import lib.base.backend.modules.security.jwt.util.JwtUtil;
+import lib.base.backend.modules.security.jwt.wrapper.HttpRequestWrapper;
 import lib.base.backend.persistance.GenericPersistence;
 import lib.base.backend.pojo.rest.security.LoginRequestPojo;
 import lib.base.backend.pojo.rest.security.UserRequestPojo;
+import lib.base.backend.utils.HttpUtil;
 
 @Component
 public class UserAuthBusiness {
@@ -27,26 +32,30 @@ public class UserAuthBusiness {
 	private static final Logger log = LoggerFactory.getLogger(UserAuthBusiness.class);
 	
 	@SuppressWarnings("rawtypes")
-	GenericPersistence genericCustomPersistance;
+	private GenericPersistence genericCustomPersistance;
 	
-	UserRepositoryImpl userRepository;
+	private UserRepositoryImpl userRepository;
 	
-	ConfigAuthRepositoryImpl configAuthRepository;
+	private ConfigAuthRepositoryImpl configAuthRepository;
 	
-	JwtUtil jwtUtil;
+	private JwtUtil jwtUtil;
 	
-	JwtCryptUtil jwtCryptUtil;
+	private JwtCryptUtil jwtCryptUtil;
+	
+	@SuppressWarnings("rawtypes")
+	private HttpUtil httpUtil;
 	
 	@Value("${app.config.security.jwt.skip.auth}")
 	private boolean isSkipAuth;
 	
 	@Autowired
-	public UserAuthBusiness(GenericPersistence<?> genericCustomPersistance, UserRepositoryImpl userRepository, ConfigAuthRepositoryImpl configAuthRepository, JwtUtil jwtUtil, JwtCryptUtil jwtCryptUtil) {
+	public UserAuthBusiness(GenericPersistence<?> genericCustomPersistance, UserRepositoryImpl userRepository, ConfigAuthRepositoryImpl configAuthRepository, JwtUtil jwtUtil, JwtCryptUtil jwtCryptUtil, HttpUtil<?> httpUtil) {
 		this.genericCustomPersistance = genericCustomPersistance;
 		this.userRepository = userRepository;
 		this.configAuthRepository = configAuthRepository;
 		this.jwtUtil = jwtUtil;
 		this.jwtCryptUtil = jwtCryptUtil;
+		this.httpUtil = httpUtil;
 	}
 
 	public boolean isUserLoggedIn(String username, String pwd) {
@@ -60,7 +69,7 @@ public class UserAuthBusiness {
 		String pwdEncrypt = jwtCryptUtil.encryptPwd(authRequest.getPwd());
 		
 		if (isUserLoggedIn(authRequest.getUserName(), pwdEncrypt))
-    		throw new BusinessException("User logged in");
+    		throw new BusinessException("User with session active");
 		
 		UserEntity userEntity = userRepository.find(authRequest.getUserName(), pwdEncrypt);
 		
@@ -110,6 +119,7 @@ public class UserAuthBusiness {
         
         GetUserLoggedInDataPojo dataPojo = new GetUserLoggedInDataPojo();
     	dataPojo.setToken(token);
+    	dataPojo.setUserName(authRequest.getUserName());
     	
     	return dataPojo;
     }
@@ -145,6 +155,14 @@ public class UserAuthBusiness {
     }
 	
 	@SuppressWarnings("unchecked")
+	public boolean validateSessionActive(HttpRequestWrapper requestWrapper) throws IOException {
+		
+		String headerAuthorization = requestWrapper.getHeader("Authorization");
+		UserRequestPojo userRequestPojo = (UserRequestPojo) httpUtil.mapRequest(requestWrapper, UserRequestPojo.class);
+		return executeValidateToken(userRequestPojo, headerAuthorization);
+	}
+	
+	@SuppressWarnings("unchecked")
 	@Transactional(rollbackFor = Exception.class)
     public boolean executeValidateAndRefreshToken(UserRequestPojo authRequest, String authorizationHeader) {
 		
@@ -154,6 +172,10 @@ public class UserAuthBusiness {
 			return false;
     	
         ConfigAuthEntity configAuthEntity = configAuthRepository.findByUserNameToken(authRequest.getUserName(), token);
+        
+		if (configAuthEntity == null)
+			return false;
+        
         configAuthEntity.setDateRefresh(new Date());
         genericCustomPersistance.save(configAuthEntity);
         
@@ -186,6 +208,19 @@ public class UserAuthBusiness {
 	@Transactional(rollbackFor = Exception.class)
     public void executeDeleteTokensExpired(Long expirationTime) {
 		
+		if (expirationTime == null || expirationTime == 0) {
+			log.debug("USER AUTH: expiration time not configured");
+			return;
+		}
+		
 		configAuthRepository.deleteTokensExpired(expirationTime);
     }
+	
+	@Transactional(rollbackFor = Exception.class)
+	public boolean executeValidateSessionActive(HttpServletRequest request) throws IOException {
+		
+		HttpRequestWrapper requestWrapper = new HttpRequestWrapper(request);
+		
+		return validateSessionActive(requestWrapper);
+	}
 }

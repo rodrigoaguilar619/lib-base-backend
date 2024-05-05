@@ -3,6 +3,7 @@ package lib.base.backend.modules.security.jwt.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -24,12 +25,13 @@ public class WebSecurityJwtConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		 http.csrf().disable()
+		 http
+		 .cors(Customizer.withDefaults())
+		 .csrf().disable()
 		 .authorizeRequests()
          	.antMatchers("/**").permitAll()
          	.and()
          .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
-         .formLogin().disable();
-         
+         .formLogin().disable(); 
 	}
 }

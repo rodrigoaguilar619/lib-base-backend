@@ -5,9 +5,8 @@ public class UriCatalog {
 	private UriCatalog() {}
 
 	public static final String AUTH_LOGIN = "/auth/login";
-	
 	public static final String AUTH_LOGOUT = "/auth/logout";
-	
 	public static final String AUTH_REFRESH = "/auth/refresh";
+	public static final String AUTH_VALIDATE_SESSION = "/auth/validateSession";
 	
 }

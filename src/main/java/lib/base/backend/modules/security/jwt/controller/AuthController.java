@@ -1,6 +1,12 @@
 package lib.base.backend.modules.security.jwt.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,8 +18,10 @@ import lib.base.backend.modules.security.jwt.business.UserAuthBusiness;
 import lib.base.backend.modules.security.jwt.pojo.data.GetUserLoggedInDataPojo;
 import lib.base.backend.modules.security.jwt.util.JwtUtil;
 import lib.base.backend.modules.security.jwt.vo.UriCatalog;
+import lib.base.backend.pojo.rest.GenericResponsePojo;
 import lib.base.backend.pojo.rest.security.LoginRequestPojo;
 import lib.base.backend.pojo.rest.security.UserRequestPojo;
+import lib.base.backend.utils.HttpUtil;
 import lib.base.backend.utils.RestUtil;
 
 @RestController
@@ -55,4 +63,22 @@ public class AuthController {
     	
     	return new RestUtil().buildResponseSuccess("", "User token refresh");
     }
+    
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @PostMapping(UriCatalog.AUTH_VALIDATE_SESSION)
+	public ResponseEntity validateSession(HttpServletRequest request, HttpServletResponse response) throws BusinessException, IOException {
+		
+    	boolean isValid = userAuthBusiness.executeValidateSessionActive(request);
+    	
+    	if (!isValid) {
+    		GenericResponsePojo<?> genericResponsePojo = new GenericResponsePojo<>(HttpStatus.UNAUTHORIZED.value(), "Not authorized", "");
+			response.setContentType("application/json");
+		    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		    response.getOutputStream().write(new HttpUtil().mapEntity(genericResponsePojo).getBytes());
+		    
+		    return null;
+    	}
+		
+		return new RestUtil().buildResponseSuccess("", "User token is valid");
+	}
 }
