@@ -17,8 +17,8 @@ public class CorsBeans {
 	            registry.addMapping("/**")
 	                    .allowedOrigins("*")
 	                    .allowedMethods("*")
-	                    .allowedHeaders("*")
-	                    .allowCredentials(true);
+	                    .allowedOriginPatterns("*");
+	                    //.allowCredentials(true);
 	        }
 	    };
 	}

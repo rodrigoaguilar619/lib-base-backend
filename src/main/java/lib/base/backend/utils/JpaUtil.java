@@ -1,6 +1,6 @@
 package lib.base.backend.utils;
 
-import javax.persistence.metamodel.StaticMetamodel;
+import jakarta.persistence.metamodel.StaticMetamodel;
 
 public class JpaUtil {
 

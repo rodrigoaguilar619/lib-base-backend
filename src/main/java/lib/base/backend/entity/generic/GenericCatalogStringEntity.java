@@ -1,7 +1,7 @@
 package lib.base.backend.entity.generic;
 
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class GenericCatalogStringEntity {
