@@ -141,8 +141,7 @@ public class UserAuthBusiness {
         genericCustomPersistance.delete(configAuthEntity);
     }
 	
-	@Transactional(rollbackFor = Exception.class)
-    public boolean executeValidateToken(UserRequestPojo authRequest, String authorizationHeader) {
+    public boolean validateToken(UserRequestPojo authRequest, String authorizationHeader) {
 		
 		String token = jwtUtil.extractToken(authorizationHeader);
 		
@@ -159,7 +158,7 @@ public class UserAuthBusiness {
 		
 		String headerAuthorization = requestWrapper.getHeader("Authorization");
 		UserRequestPojo userRequestPojo = (UserRequestPojo) httpUtil.mapRequest(requestWrapper, UserRequestPojo.class);
-		return executeValidateToken(userRequestPojo, headerAuthorization);
+		return validateToken(userRequestPojo, headerAuthorization);
 	}
 	
 	@SuppressWarnings("unchecked")

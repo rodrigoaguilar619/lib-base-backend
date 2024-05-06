@@ -9,12 +9,14 @@ import jakarta.persistence.metamodel.StaticMetamodel;
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(ConfigAuthEntity.class)
 public abstract class ConfigAuthEntity_ {
+	
+	private ConfigAuthEntity_() { }
 
-	public static volatile SingularAttribute<ConfigAuthEntity, Integer> idUser;
-	public static volatile SingularAttribute<ConfigAuthEntity, String> token;
-	public static volatile SingularAttribute<ConfigAuthEntity, UserEntity> userEntity;
-	public static volatile SingularAttribute<ConfigAuthEntity, Date> dateLogin;
-	public static volatile SingularAttribute<ConfigAuthEntity, Date> dateRefresh;
+	public static SingularAttribute<ConfigAuthEntity, Integer> idUser;
+	public static SingularAttribute<ConfigAuthEntity, String> token;
+	public static SingularAttribute<ConfigAuthEntity, UserEntity> userEntity;
+	public static SingularAttribute<ConfigAuthEntity, Date> dateLogin;
+	public static SingularAttribute<ConfigAuthEntity, Date> dateRefresh;
 	
 	public static final String ID_USER = "idUser";
 	public static final String TOKEN = "token";

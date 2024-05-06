@@ -8,10 +8,10 @@ import jakarta.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(UserEntity.class)
 public class UserEntity_ {
 
-	public static volatile SingularAttribute<ConfigAuthEntity, Integer> id;
-	public static volatile SingularAttribute<ConfigAuthEntity, String> userName;
-	public static volatile SingularAttribute<ConfigAuthEntity, String> password;
-	public static volatile SingularAttribute<ConfigAuthEntity, Boolean> isActive;
+	public static SingularAttribute<ConfigAuthEntity, Integer> id;
+	public static SingularAttribute<ConfigAuthEntity, String> userName;
+	public static SingularAttribute<ConfigAuthEntity, String> password;
+	public static SingularAttribute<ConfigAuthEntity, Boolean> isActive;
 	
 	public static final String ID = "id";
 	public static final String USER_NAME = "userName";

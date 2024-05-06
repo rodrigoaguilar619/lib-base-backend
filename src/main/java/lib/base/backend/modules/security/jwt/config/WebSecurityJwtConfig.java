@@ -27,7 +27,7 @@ public class WebSecurityJwtConfig {
 
 		http
 		.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
-		.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/**").permitAll())
+		.authorizeHttpRequests(authorize -> authorize.requestMatchers("/**").permitAll())
 		.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
 		.formLogin(AbstractHttpConfigurer::disable);
 

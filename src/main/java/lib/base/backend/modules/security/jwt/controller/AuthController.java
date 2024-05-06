@@ -66,7 +66,7 @@ public class AuthController {
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @PostMapping(UriCatalog.AUTH_VALIDATE_SESSION)
-	public ResponseEntity validateSession(HttpServletRequest request, HttpServletResponse response) throws BusinessException, IOException {
+	public ResponseEntity validateSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
     	boolean isValid = userAuthBusiness.executeValidateSessionActive(request);
     	

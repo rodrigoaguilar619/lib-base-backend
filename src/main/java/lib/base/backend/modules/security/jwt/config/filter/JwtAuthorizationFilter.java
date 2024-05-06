@@ -53,7 +53,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 		String uriWithoutContext = requestWrapper.getRequestURI().substring(requestWrapper.getContextPath().length());
 		
 		if (uriWithoutContext.startsWith("/api/") || uriWithoutContext.startsWith(UriCatalog.AUTH_REFRESH)) {
-			boolean isSessionActive = userAuthBusiness.validateSessionActive(requestWrapper);
+			boolean isSessionActive = userAuthBusiness.executeValidateSessionActive(requestWrapper);
 			
 			if (!isSessionActive) {
 				GenericResponsePojo<?> genericResponsePojo = new GenericResponsePojo<>(HttpStatus.UNAUTHORIZED.value(), "Not authorized", "");
