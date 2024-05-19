@@ -2,7 +2,6 @@ package lib.base.backend.modules.security.jwt.controller;
 
 import java.io.IOException;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +65,9 @@ public class AuthController {
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @PostMapping(UriCatalog.AUTH_VALIDATE_SESSION)
-	public ResponseEntity validateSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public ResponseEntity validateSession(@RequestBody UserRequestPojo userRequest, @RequestHeader("Authorization") String authorizationHeader, HttpServletResponse response) throws IOException {
 		
-    	boolean isValid = userAuthBusiness.executeValidateSessionActive(request);
+    	boolean isValid = userAuthBusiness.executeValidateSessionActive(userRequest, authorizationHeader);
     	
     	if (!isValid) {
     		GenericResponsePojo<?> genericResponsePojo = new GenericResponsePojo<>(HttpStatus.UNAUTHORIZED.value(), "Not authorized", "");

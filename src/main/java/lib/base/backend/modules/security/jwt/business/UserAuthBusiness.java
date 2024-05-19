@@ -1,9 +1,6 @@
 package lib.base.backend.modules.security.jwt.business;
 
-import java.io.IOException;
 import java.util.Date;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +17,6 @@ import lib.base.backend.modules.security.jwt.repository.ConfigAuthRepositoryImpl
 import lib.base.backend.modules.security.jwt.repository.UserRepositoryImpl;
 import lib.base.backend.modules.security.jwt.util.JwtCryptUtil;
 import lib.base.backend.modules.security.jwt.util.JwtUtil;
-import lib.base.backend.modules.security.jwt.wrapper.HttpRequestWrapper;
 import lib.base.backend.persistance.GenericPersistence;
 import lib.base.backend.pojo.rest.security.LoginRequestPojo;
 import lib.base.backend.pojo.rest.security.UserRequestPojo;
@@ -42,9 +38,6 @@ public class UserAuthBusiness {
 	
 	private JwtCryptUtil jwtCryptUtil;
 	
-	@SuppressWarnings("rawtypes")
-	private HttpUtil httpUtil;
-	
 	@Value("${app.config.security.jwt.skip.auth}")
 	private boolean isSkipAuth;
 	
@@ -55,7 +48,6 @@ public class UserAuthBusiness {
 		this.configAuthRepository = configAuthRepository;
 		this.jwtUtil = jwtUtil;
 		this.jwtCryptUtil = jwtCryptUtil;
-		this.httpUtil = httpUtil;
 	}
 
 	public boolean isUserLoggedIn(String username, String pwd) {
@@ -153,11 +145,8 @@ public class UserAuthBusiness {
         return configAuthEntity != null;
     }
 	
-	@SuppressWarnings("unchecked")
-	public boolean validateSessionActive(HttpRequestWrapper requestWrapper) throws IOException {
+	public boolean validateSessionActive(UserRequestPojo userRequestPojo, String headerAuthorization) {
 		
-		String headerAuthorization = requestWrapper.getHeader("Authorization");
-		UserRequestPojo userRequestPojo = (UserRequestPojo) httpUtil.mapRequest(requestWrapper, UserRequestPojo.class);
 		return validateToken(userRequestPojo, headerAuthorization);
 	}
 	
@@ -216,10 +205,8 @@ public class UserAuthBusiness {
     }
 	
 	@Transactional(rollbackFor = Exception.class)
-	public boolean executeValidateSessionActive(HttpServletRequest request) throws IOException {
+	public boolean executeValidateSessionActive(UserRequestPojo userRequestPojo, String headerAuthorization) {
 		
-		HttpRequestWrapper requestWrapper = new HttpRequestWrapper(request);
-		
-		return validateSessionActive(requestWrapper);
+		return validateSessionActive(userRequestPojo, headerAuthorization);
 	}
 }
