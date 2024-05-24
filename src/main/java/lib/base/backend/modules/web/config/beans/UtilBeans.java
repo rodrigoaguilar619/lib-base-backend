@@ -9,6 +9,7 @@ import lib.base.backend.utils.CatalogUtil;
 import lib.base.backend.utils.DataUtil;
 import lib.base.backend.utils.HttpUtil;
 import lib.base.backend.utils.JpaUtil;
+import lib.base.backend.utils.NumberDataUtil;
 import lib.base.backend.utils.ReadFileUtil;
 import lib.base.backend.utils.RestUtil;
 import lib.base.backend.utils.date.DateFormatUtil;
@@ -62,5 +63,10 @@ public class UtilBeans {
 	@Bean
 	public DataUtil buildDataUtil() {
 		return new DataUtil();
+	}
+	
+	@Bean
+	public NumberDataUtil buildNumberDataUtil() {
+		return new NumberDataUtil();
 	}
 }
