@@ -69,8 +69,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 				return;
 			}
 		}
-		else if (uriWithoutContext.startsWith("/auth/")) {
-			log.debug("JWT AUTH: allowing paths under /auth/");
+		else if (uriWithoutContext.startsWith("/auth/") || uriWithoutContext.startsWith("/actuator/")) {
+			log.debug("JWT AUTH: allowing paths under /auth/ and /actuator/");
 			filterChain.doFilter(requestWrapper, response);
 			return;
 		}
