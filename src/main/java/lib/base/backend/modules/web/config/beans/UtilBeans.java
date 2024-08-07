@@ -20,6 +20,11 @@ import lib.base.backend.utils.date.DateUtil;
 public class UtilBeans {
 	
 	@Bean
+    public RestTemplateBuilder restTemplateBuilder() {
+        return new RestTemplateBuilder();
+    }
+	
+	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
