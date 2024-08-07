@@ -10,10 +10,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class Assessment {
+import lib.base.backend.pojo.rest.GenericResponsePojo;
+
+public class Assessment<T> {
 	
 	private Assessment() {}
 
@@ -36,5 +39,11 @@ public class Assessment {
 		
         assertNotNull(dataListPojo);
         assertThat(dataListPojo.size(), greaterThan(0));
+	}
+	
+	public static <T> void assertResponseData(ResponseEntity<GenericResponsePojo<T>> response) {
+		assertNotNull(response);
+		assertNotNull(response.getBody());
+		assertNotNull(response.getBody().getData());
 	}
 }
