@@ -14,6 +14,8 @@ public class GenericStatusEntity {
 	@Column(name = "id")
 	protected Integer id;
 	
+	protected String reference;
+	
 	@Column(name = "description")
 	protected String description;
 	
@@ -25,6 +27,14 @@ public class GenericStatusEntity {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
 
 	public String getDescription() {
