@@ -20,12 +20,11 @@ public class CatalogController {
 	CatalogBusiness catalogBusiness;
 	
 	@SuppressWarnings("rawtypes")
-	RestUtil restUtil;
+	RestUtil restUtil = new RestUtil();
 	
 	@Autowired
-	public CatalogController(CatalogBusiness catalogBusiness, RestUtil<?> restUtil) {
+	public CatalogController(CatalogBusiness catalogBusiness) {
 		this.catalogBusiness = catalogBusiness;
-		this.restUtil = restUtil;
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })

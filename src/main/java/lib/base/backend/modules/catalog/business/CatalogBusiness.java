@@ -22,14 +22,13 @@ public class CatalogBusiness {
 
 	protected GenericPersistence<?> genericCustomPersistance;
 	
-	CatalogUtil catalogUtil;
-	
 	CatalogDefinition catalogDefinition;
 	
+	CatalogUtil catalogUtil = new CatalogUtil();
+	
 	@Autowired
-	public CatalogBusiness(GenericPersistence<?> genericCustomPersistance, CatalogUtil catalogUtil, CatalogDefinition catalogDefinition) {
+	public CatalogBusiness(GenericPersistence<?> genericCustomPersistance, CatalogDefinition catalogDefinition) {
 		this.genericCustomPersistance = genericCustomPersistance;
-		this.catalogUtil = catalogUtil;
 		this.catalogDefinition = catalogDefinition;
 	}
 	

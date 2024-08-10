@@ -1,7 +1,5 @@
 package lib.base.backend.modules.web.config.handler;
 
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lib.base.backend.exception.data.BusinessException;
 import lib.base.backend.pojo.rest.GenericResponsePojo;
 

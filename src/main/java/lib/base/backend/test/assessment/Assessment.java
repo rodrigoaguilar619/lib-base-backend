@@ -5,18 +5,18 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lib.base.backend.pojo.rest.GenericResponsePojo;
 
-public class Assessment<T> {
+public class Assessment {
 	
 	private Assessment() {}
 
@@ -42,8 +42,14 @@ public class Assessment<T> {
 	}
 	
 	public static <T> void assertResponseData(ResponseEntity<GenericResponsePojo<T>> response) {
+		
 		assertNotNull(response);
-		assertNotNull(response.getBody());
-		assertNotNull(response.getBody().getData());
+	    
+	    GenericResponsePojo<T> body = response.getBody();
+	    assertNotNull(body);
+	    
+	    if (body != null) {
+	        assertNotNull(body.getData());
+	    }
 	}
 }

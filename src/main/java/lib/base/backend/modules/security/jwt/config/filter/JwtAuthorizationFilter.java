@@ -2,38 +2,38 @@ package lib.base.backend.modules.security.jwt.config.filter;
 
 import java.io.IOException;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lib.base.backend.modules.security.jwt.business.UserAuthBusiness;
-import lib.base.backend.modules.security.jwt.util.JwtUtil;
 import lib.base.backend.modules.security.jwt.vo.UriCatalog;
 import lib.base.backend.modules.security.jwt.wrapper.HttpRequestWrapper;
 import lib.base.backend.pojo.rest.GenericResponsePojo;
 import lib.base.backend.pojo.rest.security.UserRequestPojo;
 import lib.base.backend.utils.HttpUtil;
 
+@SuppressWarnings("rawtypes")
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 	
-	@Autowired
-	UserAuthBusiness userAuthBusiness;
+	private UserAuthBusiness userAuthBusiness;
 	
-	@SuppressWarnings("unused")
-	@Autowired
-	private JwtUtil jwtUtil;
-	
-	@SuppressWarnings("rawtypes")
-	@Autowired
 	private HttpUtil httpUtil;
 	
+	@Autowired
+	public JwtAuthorizationFilter(UserAuthBusiness userAuthBusiness, HttpUtil httpUtil) {
+		super();
+		this.userAuthBusiness = userAuthBusiness;
+		this.httpUtil = httpUtil;
+	}
+
 	@Value("${app.config.security.jwt.skip.auth}")
 	private boolean isSkipAuth;
 	

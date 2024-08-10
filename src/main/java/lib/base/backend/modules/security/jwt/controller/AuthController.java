@@ -2,8 +2,6 @@ package lib.base.backend.modules.security.jwt.controller;
 
 import java.io.IOException;
 
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lib.base.backend.exception.data.BusinessException;
 import lib.base.backend.modules.security.jwt.business.UserAuthBusiness;
 import lib.base.backend.modules.security.jwt.pojo.data.GetUserLoggedInDataPojo;

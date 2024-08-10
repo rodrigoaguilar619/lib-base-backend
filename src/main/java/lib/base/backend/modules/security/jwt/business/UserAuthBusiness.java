@@ -20,7 +20,6 @@ import lib.base.backend.modules.security.jwt.util.JwtUtil;
 import lib.base.backend.persistance.GenericPersistence;
 import lib.base.backend.pojo.rest.security.LoginRequestPojo;
 import lib.base.backend.pojo.rest.security.UserRequestPojo;
-import lib.base.backend.utils.HttpUtil;
 
 @Component
 public class UserAuthBusiness {
@@ -42,7 +41,7 @@ public class UserAuthBusiness {
 	private boolean isSkipAuth;
 	
 	@Autowired
-	public UserAuthBusiness(GenericPersistence<?> genericCustomPersistance, UserRepositoryImpl userRepository, ConfigAuthRepositoryImpl configAuthRepository, JwtUtil jwtUtil, JwtCryptUtil jwtCryptUtil, HttpUtil<?> httpUtil) {
+	public UserAuthBusiness(GenericPersistence<?> genericCustomPersistance, UserRepositoryImpl userRepository, ConfigAuthRepositoryImpl configAuthRepository, JwtUtil jwtUtil, JwtCryptUtil jwtCryptUtil) {
 		this.genericCustomPersistance = genericCustomPersistance;
 		this.userRepository = userRepository;
 		this.configAuthRepository = configAuthRepository;

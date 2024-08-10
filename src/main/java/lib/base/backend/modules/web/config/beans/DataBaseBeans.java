@@ -1,8 +1,5 @@
 package lib.base.backend.modules.web.config.beans;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +7,9 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.WebApplicationContext;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import lib.base.backend.persistance.GenericPersistence;
 import lib.base.backend.persistance.transaction.GenericJpaPeristanceImpl;
 

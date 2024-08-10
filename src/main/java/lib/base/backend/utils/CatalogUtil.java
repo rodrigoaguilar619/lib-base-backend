@@ -10,7 +10,7 @@ import lib.base.backend.pojo.catalog.CatalogPojo;
 
 public class CatalogUtil {
 	
-	public static String upperCaseFirst(String val) {
+	public String upperCaseFirst(String val) {
       char[] arr = val.toCharArray();
       arr[0] = Character.toUpperCase(arr[0]);
       return new String(arr);
