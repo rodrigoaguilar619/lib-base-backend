@@ -18,10 +18,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class OpenApiConfig {
 	
-	@Value( value = "${springdoc.swagger.api.title}")
+
+	@Value( value = "${springdoc.swagger.api.title:Default API Title}")
 	private String title;
 
-	@Value("${springdoc.swagger.api.version}")
+	@Value("${springdoc.swagger.api.version:v1.0}")
 	private String version;
     
 	@Bean
