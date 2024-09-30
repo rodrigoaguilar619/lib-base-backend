@@ -46,7 +46,7 @@ public class AuthController {
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping(UriCatalog.AUTH_LOGOUT)
-    public ResponseEntity logout(@RequestBody LoginRequestPojo authRequest, @RequestHeader("Authorization") String authorizationHeader) throws BusinessException {
+    public ResponseEntity logout(@RequestBody LoginRequestPojo authRequest, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) throws BusinessException {
     	
     	userAuthBusiness.executeSaveUserLogOut(authRequest, authorizationHeader);
     	
@@ -55,7 +55,7 @@ public class AuthController {
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping(UriCatalog.AUTH_REFRESH)
-    public ResponseEntity logout(@RequestBody UserRequestPojo userRequest, @RequestHeader("Authorization") String authorizationHeader) throws BusinessException {
+    public ResponseEntity logout(@RequestBody UserRequestPojo userRequest, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) throws BusinessException {
     	
     	userAuthBusiness.executeRefreshToken(userRequest, authorizationHeader);
     	
@@ -64,7 +64,7 @@ public class AuthController {
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @PostMapping(UriCatalog.AUTH_VALIDATE_SESSION)
-	public ResponseEntity validateSession(@RequestBody UserRequestPojo userRequest, @RequestHeader("Authorization") String authorizationHeader, HttpServletResponse response) throws IOException {
+	public ResponseEntity validateSession(@RequestBody UserRequestPojo userRequest, @RequestHeader(value = "Authorization", required = false) String authorizationHeader, HttpServletResponse response) throws IOException {
 		
     	boolean isValid = userAuthBusiness.executeValidateSessionActive(userRequest, authorizationHeader);
     	
