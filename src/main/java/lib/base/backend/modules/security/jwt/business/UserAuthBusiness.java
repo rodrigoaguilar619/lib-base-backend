@@ -59,8 +59,8 @@ public class UserAuthBusiness {
 		
 		String pwdEncrypt = jwtCryptUtil.encryptPwd(authRequest.getPwd());
 		
-		if (isUserLoggedIn(authRequest.getUserName(), pwdEncrypt))
-    		throw new BusinessException("User with session active");
+		/*if (isUserLoggedIn(authRequest.getUserName(), pwdEncrypt))
+    		throw new BusinessException("User with session active");*/
 		
 		UserEntity userEntity = userRepository.find(authRequest.getUserName(), pwdEncrypt);
 		
@@ -106,7 +106,7 @@ public class UserAuthBusiness {
         String token = jwtUtil.generateToken(authRequest.getUserName());
         
         configAuthEntity.setToken(token);
-        genericCustomPersistance.save(configAuthEntity);
+        genericCustomPersistance.update(configAuthEntity);
         
         GetUserLoggedInDataPojo dataPojo = new GetUserLoggedInDataPojo();
     	dataPojo.setToken(token);
