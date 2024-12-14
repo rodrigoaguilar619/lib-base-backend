@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +25,6 @@ public class CatalogBusiness {
 	
 	CatalogUtil catalogUtil = new CatalogUtil();
 	
-	@Autowired
 	public CatalogBusiness(GenericPersistence<?> genericCustomPersistance, CatalogDefinition catalogDefinition) {
 		this.genericCustomPersistance = genericCustomPersistance;
 		this.catalogDefinition = catalogDefinition;

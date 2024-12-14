@@ -1,39 +1,61 @@
 package lib.base.backend.utils.date;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class DateFormatUtil {
 	
 	
 	/**
-	 * format date, Date to String
+	 * format date, LocalDateTime to String
 	 * 
 	 * @param dateToFormat date to format
 	 * @param formatTo format required of date
 	 * @return date formatted
 	 */
-	public String formatDate(Date dateToFormat, String formatTo) {
-		
-		SimpleDateFormat formatter = new SimpleDateFormat(formatTo);
-		return formatter.format(dateToFormat);
-		
+	public String formatLocalDateTime(LocalDateTime dateToFormat, String formatTo) {
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTo);
+	    return dateToFormat.format(formatter);
 	}
 	
 	/**
-	 * format date, String to Date
+	 * format date, LocalDate to String
+	 * 
+	 * @param dateToFormat date to format
+	 * @param formatTo format required of date
+	 * @return date formatted
+	 */
+	public String formatLocalDate(LocalDate dateToFormat, String formatTo) {
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTo);
+	    return dateToFormat.format(formatter);
+	}
+	
+	/**
+	 * format date, String to LocalDateTime
 	 * 
 	 * @param dateToFormat date to format
 	 * @param formatFrom current format of date
 	 * @return date object
 	 */
-	public Date formatDate(String dateToFormat, String formatFrom) throws ParseException {
-		
-		SimpleDateFormat formatter = new SimpleDateFormat(formatFrom);
-		return formatter.parse(dateToFormat);
-		
+	public LocalDateTime formatLocalDateTime(String dateToFormat, String formatFrom) throws DateTimeParseException {
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatFrom);
+	    return LocalDateTime.parse(dateToFormat, formatter);
 	}
+	
+	/**
+	 * format date, String to LocalDate
+	 * 
+	 * @param dateToFormat date to format
+	 * @param formatFrom current format of date
+	 * @return date object
+	 */
+	public LocalDate formatLocalDate(String dateToFormat, String formatFrom) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatFrom);
+        return LocalDate.parse(dateToFormat, formatter);
+    }
 	
 	/**
 	 * format date to date formatted
@@ -44,14 +66,12 @@ public class DateFormatUtil {
 	 * @return date formated
 	 * @throws ParseException
 	 */
-	public String formatDate(String dateToFormat, String formatFrom, String formatTo) throws ParseException {
-		
-		SimpleDateFormat formatter = new SimpleDateFormat(formatFrom);
-		Date dateFormatted = formatter.parse(dateToFormat);
-		
-		SimpleDateFormat formatterTwo = new SimpleDateFormat(formatTo);
-		return formatterTwo.format(dateFormatted);
-		
+	public String formatLocalDateTime(String dateToFormat, String formatFrom, String formatTo) throws DateTimeParseException {
+	    DateTimeFormatter fromFormatter = DateTimeFormatter.ofPattern(formatFrom);
+	    LocalDateTime parsedDate = LocalDateTime.parse(dateToFormat, fromFormatter);
+	    
+	    DateTimeFormatter toFormatter = DateTimeFormatter.ofPattern(formatTo);
+	    return parsedDate.format(toFormatter);
 	}
 
 }

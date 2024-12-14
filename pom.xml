@@ -13,7 +13,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>lib.base.backend</groupId>
 	<artifactId>lib-base-backend</artifactId>
-	<version>3.0.0</version>
+	<version>4.0.0</version>
 	<packaging>jar</packaging>
 	<name>lib-base-backend</name>
 	<description>libraries base backend</description>

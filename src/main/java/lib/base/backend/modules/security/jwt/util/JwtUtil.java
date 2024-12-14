@@ -1,5 +1,7 @@
 package lib.base.backend.modules.security.jwt.util;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -35,7 +37,10 @@ public class JwtUtil {
     }
 
     public boolean validateToken(String token) {
-        return !extractClaims(token).getExpiration().before(new Date());
+    	
+    	LocalDateTime expirationTime = extractClaims(token).getExpiration().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    	
+    	return !expirationTime.isBefore(LocalDateTime.now());
     }
 
     @SuppressWarnings("deprecation")

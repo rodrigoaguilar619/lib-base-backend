@@ -1,6 +1,6 @@
 package lib.base.backend.modules.security.jwt.business;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,6 @@ public class UserAuthBusiness {
 	@Value("${app.config.security.jwt.skip.auth}")
 	private boolean isSkipAuth;
 	
-	@Autowired
 	public UserAuthBusiness(GenericPersistence<?> genericCustomPersistance, UserRepositoryImpl userRepository, ConfigAuthRepositoryImpl configAuthRepository, JwtUtil jwtUtil, JwtCryptUtil jwtCryptUtil) {
 		this.genericCustomPersistance = genericCustomPersistance;
 		this.userRepository = userRepository;
@@ -99,8 +98,8 @@ public class UserAuthBusiness {
         	
             configAuthEntity = new ConfigAuthEntity();
             configAuthEntity.setIdUser(userEntity.getId());
-            configAuthEntity.setDateLogin(new Date());
-            configAuthEntity.setDateRefresh(new Date());
+            configAuthEntity.setDateLogin(LocalDateTime.now());
+            configAuthEntity.setDateRefresh(LocalDateTime.now());
         }
         
         String token = jwtUtil.generateToken(authRequest.getUserName());
@@ -163,7 +162,7 @@ public class UserAuthBusiness {
 		if (configAuthEntity == null)
 			return false;
         
-        configAuthEntity.setDateRefresh(new Date());
+        configAuthEntity.setDateRefresh(LocalDateTime.now());
         genericCustomPersistance.save(configAuthEntity);
         
         return configAuthEntity != null;
@@ -183,7 +182,7 @@ public class UserAuthBusiness {
         if (configAuthEntity == null)
         	throw new BusinessException("Token has expired");
         
-        configAuthEntity.setDateRefresh(new Date());
+        configAuthEntity.setDateRefresh(LocalDateTime.now());
         genericCustomPersistance.save(configAuthEntity);
         
         GetUserLoggedInDataPojo dataPojo = new GetUserLoggedInDataPojo();

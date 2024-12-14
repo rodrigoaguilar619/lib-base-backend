@@ -1,7 +1,9 @@
 package lib.base.backend.utils;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 public class DataParseUtil {
 	
@@ -14,6 +16,10 @@ public class DataParseUtil {
 	}
 
 	public Long parseDate(Object value) {
-	    return value != null ? ((Date) value).getTime() : null;
+	    if (value != null && value instanceof LocalDateTime) {
+	        ZonedDateTime zonedDateTime = ((LocalDateTime) value).atZone(ZoneOffset.UTC);
+	        return zonedDateTime.toInstant().toEpochMilli();
+	    }
+	    return null;
 	}
 }

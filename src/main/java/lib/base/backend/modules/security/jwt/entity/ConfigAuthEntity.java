@@ -1,7 +1,7 @@
 package lib.base.backend.modules.security.jwt.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,10 +23,10 @@ public class ConfigAuthEntity implements Serializable {
 	private String token;
 	
 	@Column(name = "date_login")
-	private Date dateLogin;
+	private LocalDateTime dateLogin;
 	
 	@Column(name = "date_refresh")
-	private Date dateRefresh;
+	private LocalDateTime dateRefresh;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_user", insertable = false, updatable = false)
@@ -56,19 +56,19 @@ public class ConfigAuthEntity implements Serializable {
 		this.userEntity = userEntity;
 	}
 
-	public Date getDateLogin() {
+	public LocalDateTime getDateLogin() {
 		return dateLogin;
 	}
 
-	public void setDateLogin(Date dateLogin) {
+	public void setDateLogin(LocalDateTime dateLogin) {
 		this.dateLogin = dateLogin;
 	}
 
-	public Date getDateRefresh() {
+	public LocalDateTime getDateRefresh() {
 		return dateRefresh;
 	}
 
-	public void setDateRefresh(Date dateRefresh) {
+	public void setDateRefresh(LocalDateTime dateRefresh) {
 		this.dateRefresh = dateRefresh;
 	}
 }

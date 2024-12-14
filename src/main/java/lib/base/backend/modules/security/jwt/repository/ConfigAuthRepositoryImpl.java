@@ -1,10 +1,10 @@
 package lib.base.backend.modules.security.jwt.repository;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.EntityManager;
@@ -22,7 +22,6 @@ public class ConfigAuthRepositoryImpl {
 
 	EntityManager em;
 	
-	@Autowired
 	public ConfigAuthRepositoryImpl(EntityManager em) {
 		this.em = em;
 	}
@@ -83,7 +82,7 @@ public class ConfigAuthRepositoryImpl {
 		CriteriaDelete<ConfigAuthEntity> cd = cb.createCriteriaDelete(ConfigAuthEntity.class);
         Root<ConfigAuthEntity> root = cd.from(ConfigAuthEntity.class);
         
-        Date dateTokenTop = new Date(System.currentTimeMillis() - expirationTime);
+        LocalDateTime dateTokenTop = LocalDateTime.now().minus(Duration.ofMillis(expirationTime));
         
         List<Predicate> predicatesAnd = new ArrayList<>();
 		predicatesAnd.add(cb.lessThanOrEqualTo(root.get(ConfigAuthEntity_.DATE_REFRESH), dateTokenTop));
