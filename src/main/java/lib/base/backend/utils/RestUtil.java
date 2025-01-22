@@ -17,4 +17,12 @@ public class RestUtil<T> {
 		
 		return new ResponseEntity(genericResponsePojo, HttpStatus.OK);
 	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public ResponseEntity buildResponseUnprocessable(String message) {
+		
+		GenericResponsePojo genericResponsePojo = new GenericResponsePojo(HttpStatus.UNPROCESSABLE_ENTITY.value(), message, "");
+		
+		return new ResponseEntity(genericResponsePojo, HttpStatus.UNPROCESSABLE_ENTITY);
+	}
 }
