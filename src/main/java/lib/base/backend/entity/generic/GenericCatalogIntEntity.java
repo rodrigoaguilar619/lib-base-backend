@@ -10,11 +10,11 @@ public class GenericCatalogIntEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	protected Integer id;
+	public Integer id;
 	
-	protected String description;
+	public String description;
 	
-	protected Boolean isActive;
+	public Boolean isActive;
 	
 	public GenericCatalogIntEntity() {
 	}
