@@ -33,7 +33,7 @@ public class ConfigAuthRepositoryImpl {
 		Root<ConfigAuthEntity> root = cq.from(ConfigAuthEntity.class);
 		
 		List<Predicate> predicatesAnd = new ArrayList<>();
-		predicatesAnd.add(cb.equal(root.get(ConfigAuthEntity_.userEntity).get(UserEntity_.USER_NAME), userName));
+		predicatesAnd.add(cb.equal(root.get(ConfigAuthEntity_.userEntity).get(UserEntity_.userName), userName));
 		
 		cq.where( predicatesAnd.toArray(new Predicate[0]) );
 
@@ -49,8 +49,8 @@ public class ConfigAuthRepositoryImpl {
 		Root<ConfigAuthEntity> root = cq.from(ConfigAuthEntity.class);
 		
 		List<Predicate> predicatesAnd = new ArrayList<>();
-		predicatesAnd.add(cb.equal(root.get(ConfigAuthEntity_.userEntity).get(UserEntity_.USER_NAME), userName));
-		predicatesAnd.add(cb.equal(root.get(ConfigAuthEntity_.userEntity).get(UserEntity_.PASSWORD), pwd));
+		predicatesAnd.add(cb.equal(root.get(ConfigAuthEntity_.userEntity).get(UserEntity_.userName), userName));
+		predicatesAnd.add(cb.equal(root.get(ConfigAuthEntity_.userEntity).get(UserEntity_.password), pwd));
 		
 		cq.where( predicatesAnd.toArray(new Predicate[0]) );
 
@@ -66,7 +66,7 @@ public class ConfigAuthRepositoryImpl {
 		Root<ConfigAuthEntity> root = cq.from(ConfigAuthEntity.class);
 		
 		List<Predicate> predicatesAnd = new ArrayList<>();
-		predicatesAnd.add(cb.equal(root.get(ConfigAuthEntity_.userEntity).get(UserEntity_.USER_NAME), userName));
+		predicatesAnd.add(cb.equal(root.get(ConfigAuthEntity_.userEntity).get(UserEntity_.userName), userName));
 		predicatesAnd.add(cb.equal(root.get(ConfigAuthEntity_.token), token));
 		
 		cq.where( predicatesAnd.toArray(new Predicate[0]) );
@@ -85,8 +85,8 @@ public class ConfigAuthRepositoryImpl {
         LocalDateTime dateTokenTop = LocalDateTime.now().minus(Duration.ofMillis(expirationTime));
         
         List<Predicate> predicatesAnd = new ArrayList<>();
-		predicatesAnd.add(cb.lessThanOrEqualTo(root.get(ConfigAuthEntity_.DATE_REFRESH), dateTokenTop));
-		predicatesAnd.add(cb.greaterThan(root.get(ConfigAuthEntity_.ID_USER), 0));
+		predicatesAnd.add(cb.lessThanOrEqualTo(root.get(ConfigAuthEntity_.dateRefresh), dateTokenTop));
+		predicatesAnd.add(cb.greaterThan(root.get(ConfigAuthEntity_.idUser), 0));
 		
 		cd.where( predicatesAnd.toArray(new Predicate[0]) );
 

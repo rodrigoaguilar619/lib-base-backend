@@ -34,7 +34,7 @@ public class UserRepositoryImpl {
 		Root<UserEntity> root = cq.from(UserEntity.class);
 		
 		List<Predicate> predicatesAnd = new ArrayList<>();
-		predicatesAnd.add(cb.equal(root.get(UserEntity_.USER_NAME), userName));
+		predicatesAnd.add(cb.equal(root.get(UserEntity_.userName), userName));
 		cq.where( predicatesAnd.toArray(new Predicate[0]) );
 
 		List<UserEntity> userEntities = em.createQuery(cq).getResultList();
@@ -49,8 +49,8 @@ public class UserRepositoryImpl {
 		Root<UserEntity> root = cq.from(UserEntity.class);
 		
 		List<Predicate> predicatesAnd = new ArrayList<>();
-		predicatesAnd.add(cb.equal(root.get(UserEntity_.USER_NAME), userName));
-		predicatesAnd.add(cb.equal(root.get(UserEntity_.PASSWORD), pwd));
+		predicatesAnd.add(cb.equal(root.get(UserEntity_.userName), userName));
+		predicatesAnd.add(cb.equal(root.get(UserEntity_.password), pwd));
 		cq.where( predicatesAnd.toArray(new Predicate[0]) );
 
 		List<UserEntity> userEntities = em.createQuery(cq).getResultList();
@@ -65,7 +65,7 @@ public class UserRepositoryImpl {
 		Root<UserEntity> root = cq.from(UserEntity.class);
 		
 		List<Predicate> predicatesAnd = new ArrayList<>();
-		predicatesAnd.add(cb.equal(root.get(UserEntity_.IS_ACTIVE), true));
+		predicatesAnd.add(cb.equal(root.get(UserEntity_.isActive), true));
 		cq.where( predicatesAnd.toArray(new Predicate[0]) );
 
 		return em.createQuery(cq).getResultList();
@@ -76,12 +76,12 @@ public class UserRepositoryImpl {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<CatalogRolEntity> cq = cb.createQuery(CatalogRolEntity.class);
 		Root<UserRolEntity> root = cq.from(UserRolEntity.class);
-		cq.select(root.get(UserRolEntity_.CATALOG_ROL_ENTITY));
+		cq.select(root.get(UserRolEntity_.catalogRolEntity));
 		
-		Join<UserRolEntity, UserEntity> joinUser = root.join(UserRolEntity_.USER_ENTITY, JoinType.LEFT);
+		Join<UserRolEntity, UserEntity> joinUser = root.join(UserRolEntity_.userEntity, JoinType.LEFT);
 		
 		List<Predicate> predicatesAnd = new ArrayList<>();
-		predicatesAnd.add(cb.equal(joinUser.get(UserEntity_.USER_NAME), userName));
+		predicatesAnd.add(cb.equal(joinUser.get(UserEntity_.userName), userName));
 		cq.where( predicatesAnd.toArray(new Predicate[0]) );
 
 		return em.createQuery(cq).getResultList();

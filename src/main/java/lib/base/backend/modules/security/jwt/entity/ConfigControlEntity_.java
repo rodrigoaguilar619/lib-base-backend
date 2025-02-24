@@ -13,10 +13,5 @@ public abstract class ConfigControlEntity_ {
 	public static SingularAttribute<ConfigControlEntity, Integer> id;
 	public static SingularAttribute<ConfigControlEntity, String> value;
 
-	public static final String REFERENCE = "reference";
-	public static final String DESCRIPTION = "description";
-	public static final String ID = "id";
-	public static final String VALUE = "value";
-
 }
 
