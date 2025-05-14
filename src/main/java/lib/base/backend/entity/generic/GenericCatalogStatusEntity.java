@@ -19,6 +19,7 @@ public class GenericCatalogStatusEntity {
 	@Column(name = "description")
 	protected String description;
 	
+	@Column(name = "is_active")
 	protected Boolean isActive;
 
 	public Integer getId() {

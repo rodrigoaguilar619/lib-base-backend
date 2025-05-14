@@ -1,5 +1,6 @@
 package lib.base.backend.entity.generic;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,6 +15,7 @@ public class GenericCatalogIntEntity {
 	
 	public String description;
 	
+	@Column(name="is_active")
 	public Boolean isActive;
 	
 	public GenericCatalogIntEntity() {
